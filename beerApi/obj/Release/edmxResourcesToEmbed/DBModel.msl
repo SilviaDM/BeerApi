@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BeerEntitiesStoreContainer" CdmEntityContainer="BeerEntities">
+    <EntitySetMapping Name="BeerConsume">
+      <EntityTypeMapping TypeName="BeerEntities.BeerConsume">
+        <MappingFragment StoreEntitySet="BeerConsume">
+          <ScalarProperty Name="IdBeerConsume" ColumnName="IdBeerConsume" />
+          <ScalarProperty Name="IdBeerVariety" ColumnName="IdBeerVariety" />
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="DateConsume" ColumnName="DateConsume" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BeerHeader">
+      <EntityTypeMapping TypeName="BeerEntities.BeerHeader">
+        <MappingFragment StoreEntitySet="BeerHeader">
+          <ScalarProperty Name="IdBeer" ColumnName="IdBeer" />
+          <ScalarProperty Name="Brand" ColumnName="Brand" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IdCountry" ColumnName="IdCountry" />
+          <ScalarProperty Name="IdStatus" ColumnName="IdStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BeerVariety">
+      <EntityTypeMapping TypeName="BeerEntities.BeerVariety">
+        <MappingFragment StoreEntitySet="BeerVariety">
+          <ScalarProperty Name="IdBeerVariety" ColumnName="IdBeerVariety" />
+          <ScalarProperty Name="IdBeer" ColumnName="IdBeer" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="PerAcohol" ColumnName="PerAcohol" />
+          <ScalarProperty Name="IdType" ColumnName="IdType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Catalog">
+      <EntityTypeMapping TypeName="BeerEntities.Catalog">
+        <MappingFragment StoreEntitySet="Catalog">
+          <ScalarProperty Name="IdCatalog" ColumnName="IdCatalog" />
+          <ScalarProperty Name="List" ColumnName="List" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="IdStatus" ColumnName="IdStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="BeerEntities.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="IdUser" ColumnName="IdUser" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Fullname" ColumnName="Fullname" />
+          <ScalarProperty Name="IdStatus" ColumnName="IdStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

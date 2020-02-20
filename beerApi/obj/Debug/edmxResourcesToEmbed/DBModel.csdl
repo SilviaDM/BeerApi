@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BeerEntities" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="BeerConsume">
+    <Key>
+      <PropertyRef Name="IdBeerConsume" />
+    </Key>
+    <Property Name="IdBeerConsume" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdBeerVariety" Type="Int32" Nullable="false" />
+    <Property Name="IdUser" Type="Int32" Nullable="false" />
+    <Property Name="DateConsume" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="BeerVariety" Relationship="Self.FK_BeerConsume_BeerVariety" FromRole="BeerConsume" ToRole="BeerVariety" />
+    <NavigationProperty Name="Users" Relationship="Self.FK_BeerConsume_Users" FromRole="BeerConsume" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="BeerHeader">
+    <Key>
+      <PropertyRef Name="IdBeer" />
+    </Key>
+    <Property Name="IdBeer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Brand" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdCountry" Type="Int32" Nullable="false" />
+    <Property Name="IdStatus" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="BeerVariety" Relationship="Self.FK_BeerVariety_BeerHeader" FromRole="BeerHeader" ToRole="BeerVariety" />
+  </EntityType>
+  <EntityType Name="BeerVariety">
+    <Key>
+      <PropertyRef Name="IdBeerVariety" />
+    </Key>
+    <Property Name="IdBeerVariety" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="IdBeer" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="PerAcohol" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+    <Property Name="IdType" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="BeerConsume" Relationship="Self.FK_BeerConsume_BeerVariety" FromRole="BeerVariety" ToRole="BeerConsume" />
+    <NavigationProperty Name="BeerHeader" Relationship="Self.FK_BeerVariety_BeerHeader" FromRole="BeerVariety" ToRole="BeerHeader" />
+  </EntityType>
+  <EntityType Name="Catalog">
+    <Key>
+      <PropertyRef Name="IdCatalog" />
+    </Key>
+    <Property Name="IdCatalog" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="List" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdStatus" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="IdUser" />
+    </Key>
+    <Property Name="IdUser" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Fullname" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdStatus" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="BeerConsume" Relationship="Self.FK_BeerConsume_Users" FromRole="Users" ToRole="BeerConsume" />
+  </EntityType>
+  <Association Name="FK_BeerConsume_BeerVariety">
+    <End Role="BeerVariety" Type="Self.BeerVariety" Multiplicity="1" />
+    <End Role="BeerConsume" Type="Self.BeerConsume" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BeerVariety">
+        <PropertyRef Name="IdBeerVariety" />
+      </Principal>
+      <Dependent Role="BeerConsume">
+        <PropertyRef Name="IdBeerVariety" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BeerConsume_Users">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="BeerConsume" Type="Self.BeerConsume" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="IdUser" />
+      </Principal>
+      <Dependent Role="BeerConsume">
+        <PropertyRef Name="IdUser" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BeerVariety_BeerHeader">
+    <End Role="BeerHeader" Type="Self.BeerHeader" Multiplicity="1" />
+    <End Role="BeerVariety" Type="Self.BeerVariety" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="BeerHeader">
+        <PropertyRef Name="IdBeer" />
+      </Principal>
+      <Dependent Role="BeerVariety">
+        <PropertyRef Name="IdBeer" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BeerEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="BeerConsume" EntityType="Self.BeerConsume" />
+    <EntitySet Name="BeerHeader" EntityType="Self.BeerHeader" />
+    <EntitySet Name="BeerVariety" EntityType="Self.BeerVariety" />
+    <EntitySet Name="Catalog" EntityType="Self.Catalog" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <AssociationSet Name="FK_BeerConsume_BeerVariety" Association="Self.FK_BeerConsume_BeerVariety">
+      <End Role="BeerVariety" EntitySet="BeerVariety" />
+      <End Role="BeerConsume" EntitySet="BeerConsume" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BeerConsume_Users" Association="Self.FK_BeerConsume_Users">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="BeerConsume" EntitySet="BeerConsume" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BeerVariety_BeerHeader" Association="Self.FK_BeerVariety_BeerHeader">
+      <End Role="BeerHeader" EntitySet="BeerHeader" />
+      <End Role="BeerVariety" EntitySet="BeerVariety" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
